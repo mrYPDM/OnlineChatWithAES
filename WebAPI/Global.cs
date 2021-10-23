@@ -8,7 +8,7 @@ namespace WebAPI
 {
     public static class Global
     {
-        static public string CacheFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/TIMP_ONLINECHAT/";
+        static public string CacheFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/OnlineChat/";
 
         /// <summary>
         /// Проверяет возможность файла для отправки
