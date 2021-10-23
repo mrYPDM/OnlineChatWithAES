@@ -1,0 +1,49 @@
+﻿<Window x:Class="TiMP_Project_OnlineChat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TiMP_Project_OnlineChat"
+        mc:Ignorable="d"
+        Title="{Binding Title}"
+        Height="450" Width="500"
+        FontFamily="Century Gothic"
+        FontSize="14"
+        Closing="Window_Closing">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Menu Height="Auto" VerticalAlignment="Top">
+            <MenuItem Header="Подключение">
+                <MenuItem Header="Подключиться к серверу" Command="{Binding OpenConnectToServerWindow}"/>
+                <MenuItem Header="Создать сервер" Command="{Binding OpenStartServerWindow}"/>
+                <Separator/>
+                <MenuItem Header="Настроить" IsEnabled="{Binding IsWorking}" Command="{Binding OpenSettingsWindowCommand}"/>
+                <MenuItem Header="Отключиться" IsEnabled="{Binding IsWorking}" Command="{Binding DisconnectCommand}"/>
+            </MenuItem>
+            <MenuItem Name="ListOfUsersCheckBox" Header="Список пользователей" IsCheckable="True"/>
+        </Menu>
+        <ScrollViewer x:Name="MessagesScroll" Margin="10,30,10,70" VerticalScrollBarVisibility="Auto" CanContentScroll="False"
+                      ScrollChanged="MessagesScroll_ScrollChanged">
+            <StackPanel x:Name="MessagesStack" 
+                    Orientation="Vertical"/>
+        </ScrollViewer>
+        <ListBox Width="150" Margin="0,45,10,85" HorizontalAlignment="Right"
+                 Visibility="{Binding ElementName=ListOfUsersCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibConverter}}"
+                 ItemsSource="{Binding ListOfUsers}"/>
+        <TextBox Name="MessageTextBox" MaxLines="10" AcceptsReturn="True" MaxLength="1024" Height="50" VerticalAlignment="Bottom" Margin="10,0,70,10"
+                 Text="{Binding TextMessage, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.InputBindings>
+                <KeyBinding Modifiers="Ctrl" Key="Return" Command="{Binding SendMessageCommand}"/>
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Content="Send" Height="20" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,40"
+                Command="{Binding SendMessageCommand}"/>
+        <Button Content="File" Height="20" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10"
+            Command="{Binding SendFileCommand}"/>
+    </Grid>
+</Window>
