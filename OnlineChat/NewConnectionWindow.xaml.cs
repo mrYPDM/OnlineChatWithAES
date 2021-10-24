@@ -26,8 +26,11 @@ namespace TiMP_Project_OnlineChat
         }
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
-            Close();
+            if ((DataContext as NewConnectionWindowViewModel).IsDataValid())
+            {
+                DialogResult = true;
+                Close();
+            }
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

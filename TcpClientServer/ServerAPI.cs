@@ -73,19 +73,20 @@ namespace TcpClientServerChat
             get => _max_count_of_users;
             set
             {
-                if (_max_count_of_users == value) return;
+                int new_value = value == 0 ? int.MaxValue : value;
+                if (_max_count_of_users == new_value) return;
 
-                _max_count_of_users = value;
+                _max_count_of_users = new_value;
 
                 if (!IsWorking) return;
 
-                SendMessage(new Message("Server", $"Max count of users changed to: {value}", MessageService.Log));
-                if (CurrentCountOfUsers > value)
+                SendMessage(new Message("Server", $"Max count of users changed to: {new_value}", MessageService.Log));
+                if (CurrentCountOfUsers > new_value)
                 {
                     lock (_list_of_users_locker)
                     {
-                        while (CurrentCountOfUsers != value)
-                            DisconnectAndRemoveUser(_list_of_users[value]);
+                        while (CurrentCountOfUsers != new_value)
+                            DisconnectAndRemoveUser(_list_of_users[new_value]);
                     }
                 }
                 RaisePropertyChanged(nameof(Title));
@@ -96,17 +97,18 @@ namespace TcpClientServerChat
             get => _max_file_size;
             set
             {
-                if (_max_file_size != value)
+                int new_value = value == 0 ? int.MaxValue : value;
+                if (_max_file_size == new_value) return;
+
+                _max_file_size = new_value;
+                if (IsWorking)
                 {
-                    _max_file_size = value;
-                    if (IsWorking)
-                    {
-                        SendMessage(new(
-                            "Server",
-                            $"Max size of file changed to: {_max_file_size} MiB",
-                            MessageService.MaxFileSize(_max_file_size)));
-                    }
+                    SendMessage(new(
+                        "Server",
+                        $"Max size of file changed to: {_max_file_size} MiB",
+                        MessageService.MaxFileSize(_max_file_size)));
                 }
+
             }
         }
         private void SendMessageTo(Message message, User user)

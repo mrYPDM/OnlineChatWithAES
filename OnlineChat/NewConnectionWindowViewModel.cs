@@ -1,4 +1,5 @@
-﻿using WebAPI;
+﻿using System.Windows;
+using WebAPI;
 
 namespace TiMP_Project_OnlineChat
 {
@@ -29,6 +30,44 @@ namespace TiMP_Project_OnlineChat
         public string NickName { get; set; }
         public int MaxUsersCount { get; set; }
         public int MaxFileSize { get; set; }
+
+        public bool IsDataValid()
+        {
+            if (string.IsNullOrWhiteSpace(IP) && is_user)
+            {
+                MessageBox.Show("Введите IP адрес", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (Port < 0 || Port >= 65536)
+            {
+                MessageBox.Show("Порт должен быть в диапазоне [0; 65536]", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(NickName))
+            {
+                MessageBox.Show("Введите NickName", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!is_user)
+            {
+                if (MaxUsersCount < 0)
+                {
+                    MessageBox.Show("Количество пользователей должно быть не меньше 0 (0 - неограничено)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+
+                if (MaxFileSize < 0)
+                {
+                    MessageBox.Show("Размер файла должен быть не меньше 0 (0 - неограничено)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         public NewConnectionWindowViewModel(bool is_user)
         {

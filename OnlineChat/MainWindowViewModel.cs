@@ -113,7 +113,7 @@ namespace TiMP_Project_OnlineChat
 
                     serverModel.MaxFileSize = server_connection.MaxFileSize;
                     serverModel.NickName = server_connection.NickName;
-                    if (server_connection.MaxUsersCount < serverModel.CurrentCountOfUsers)
+                    if ((server_connection.MaxUsersCount == 0 ? int.MaxValue : server_connection.MaxUsersCount) < serverModel.CurrentCountOfUsers)
                     {
                         if (MessageBox.Show(
                             "Количество пользователей на сервере больше, чем новое значение.\nПродолжить?",
