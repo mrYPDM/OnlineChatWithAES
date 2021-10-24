@@ -320,7 +320,7 @@ namespace TcpClientServerChat
             MaxCountOfUsers = new_connection_info.MaxUsersCount;
 
             ServerSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            ServerSocket.Bind(new IPEndPoint(IPAddress.Any, Port)); //IPAddress.Parse(IP)
+            ServerSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
         }
     }
 }

@@ -35,15 +35,15 @@
         <ListBox Width="150" Margin="0,45,10,85" HorizontalAlignment="Right"
                  Visibility="{Binding ElementName=ListOfUsersCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibConverter}}"
                  ItemsSource="{Binding ListOfUsers}"/>
-        <TextBox Name="MessageTextBox" MaxLines="10" AcceptsReturn="True" MaxLength="1024" Height="50" VerticalAlignment="Bottom" Margin="10,0,70,10"
+        <TextBox Name="MessageTextBox" MaxLines="10" AcceptsReturn="True" MaxLength="1024" Height="50" VerticalAlignment="Bottom" Margin="10,0,105,10"
                  Text="{Binding TextMessage, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Modifiers="Ctrl" Key="Return" Command="{Binding SendMessageCommand}"/>
             </TextBox.InputBindings>
         </TextBox>
-        <Button Content="Send" Height="20" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,40"
-                Command="{Binding SendMessageCommand}"/>
-        <Button Content="File" Height="20" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10"
+        <Button Content="Отправить" Height="20" Width="90" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,40"
+                Command="{Binding SendMessageCommand}" ToolTip="Ctrl+Enter - отправить сообщение"/>
+        <Button Content="Файл" Height="20" Width="90" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10"
             Command="{Binding SendFileCommand}"/>
     </Grid>
 </Window>

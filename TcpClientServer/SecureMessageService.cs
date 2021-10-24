@@ -22,7 +22,7 @@ namespace TcpClientServerChat
         static public Message DecryptFromBase64(string encrypted_message, byte[] key, byte[] iv)
         {
             Aes aes = Aes.Create();
-            using var decryptor = aes.CreateDecryptor(key, iv);
+            using ICryptoTransform decryptor = aes.CreateDecryptor(key, iv);
             using MemoryStream ms = new(Convert.FromBase64String(encrypted_message));
             using CryptoStream crypto = new(ms, decryptor, CryptoStreamMode.Read);
             using StreamReader reader = new(crypto);
@@ -35,10 +35,11 @@ namespace TcpClientServerChat
             string encrypted_message = mesg.EncryptToBase64(key, iv);
             string base64_iv = Convert.ToBase64String(iv);
             using MemoryStream ms = new();
-            using BinaryWriter writer = new(ms);
-            writer.Write(encrypted_message);
-            writer.Write(base64_iv);
-            writer.Flush();
+            using (BinaryWriter writer = new(ms))
+            {
+                writer.Write(encrypted_message);
+                writer.Write(base64_iv);
+            }
             return Convert.ToBase64String(ms.ToArray());
         }
         static public Message ReadSecureMessage(string secure_message, byte[] key)
