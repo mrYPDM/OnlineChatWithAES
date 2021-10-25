@@ -28,8 +28,13 @@ namespace WebAPI
         }
         public static string GetExternIPAddress()
         {
-            return "null";
-            //return new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            try
+            {
+                return new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            } catch
+            {
+                return "null";
+            }
         }
     }
 }

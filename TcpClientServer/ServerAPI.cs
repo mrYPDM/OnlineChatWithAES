@@ -274,6 +274,7 @@ namespace TcpClientServerChat
                 {
                     continue;
                 }
+
                 if (CurrentCountOfUsers == MaxCountOfUsers)
                 {
                     SendMessageTo(new Message("Server", "No places on the server", MessageService.NoPlaces), newUser);
@@ -288,10 +289,10 @@ namespace TcpClientServerChat
         public override void Start()
         {
             if (IsWorking) return;
+            IsWorking = true;
 
             ListeningThread = new(new ThreadStart(Listen)) { Name = "ServerAPI_ListenThread" };
             ListeningThread.Start();
-            IsWorking = true;
         }
         public override void Shutdown()
         {
@@ -305,6 +306,7 @@ namespace TcpClientServerChat
                     DisconnectAndRemoveUser(_list_of_users[0]);
             }
             ServerSocket.Close();
+            ListeningThread.Join();
         }
 
         public ServerAPI(ServerAPIInitArgs new_connection_info) : base()

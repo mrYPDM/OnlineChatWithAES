@@ -59,7 +59,6 @@ namespace TcpClientServerChat
                 AddNewMessage(new Message("Client", "Fail to connect", MessageService.Log));
                 return;
             }
-
             var message = Message.FromBase64String(server.ReadMessage());
             AddNewMessage(message);
             if (message.Service == MessageService.NoPlaces)
