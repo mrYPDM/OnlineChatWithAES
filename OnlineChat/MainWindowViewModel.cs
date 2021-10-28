@@ -12,7 +12,7 @@ namespace TiMP_Project_OnlineChat
 {
     class MainWindowViewModel : BindableBase
     {
-        private SecureWebAPI model = null;
+        private WebAPIWithAES model = null;
         private NewConnectionWindowViewModel server_connection = null;
         private NewConnectionWindowViewModel client_connection = null;
         public string Title => model?.Title ?? "Chat - Offline";
@@ -59,7 +59,7 @@ namespace TiMP_Project_OnlineChat
                 model?.Shutdown();
                 ClearMessagesUI?.Execute();
 
-                model = new ServerAPI(new()
+                model = new ServerAPIWithAES(new()
                 {
                     Port = server_connection.Port,
                     NickName = server_connection.NickName,
@@ -83,7 +83,7 @@ namespace TiMP_Project_OnlineChat
 
                 model?.Shutdown();
                 ClearMessagesUI?.Execute();
-                model = new ClientAPI(new()
+                model = new ClientAPIWithAES(new()
                 { 
                     IP = client_connection.IP,
                     Port = client_connection.Port,
@@ -106,7 +106,7 @@ namespace TiMP_Project_OnlineChat
 
             OpenSettingsWindowCommand = new(() => 
             {
-                if (model is ServerAPI serverModel)
+                if (model is ServerAPIWithAES serverModel)
                 {
                     NewConnectionWindow window = new(server_connection);
                     if (window.ShowDialog() != true) return;
@@ -124,7 +124,7 @@ namespace TiMP_Project_OnlineChat
                     }
                     else serverModel.MaxCountOfUsers = server_connection.MaxUsersCount;
                 }
-                else if (model is ClientAPI)
+                else if (model is ClientAPIWithAES)
                 {
                     NewConnectionWindow window = new(client_connection);
                     if (window.ShowDialog() != true) return;

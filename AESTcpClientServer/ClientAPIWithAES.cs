@@ -6,7 +6,7 @@ using WebAPI;
 
 namespace TcpClientServerChat
 {
-    public class ClientAPI : SecureWebAPI
+    public class ClientAPIWithAES : WebAPIWithAES
     {
         public class ClientAPIInitArgs
         {
@@ -142,7 +142,7 @@ namespace TcpClientServerChat
             Shutdown();
         }
 
-        public ClientAPI(ClientAPIInitArgs new_connection_info) : base()
+        public ClientAPIWithAES(ClientAPIInitArgs new_connection_info) : base()
         {
             _list_of_users = new();
             _list_of_users.CollectionChanged += (s, e) => { RaisePropertyChanged(nameof(ListOfUsers)); };

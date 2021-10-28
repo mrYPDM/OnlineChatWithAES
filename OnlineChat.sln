@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineChat", "OnlineChat\On
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{EEDDF1AD-F738-445C-80A8-1C1866015DA1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpClientServer", "TcpClientServer\TcpClientServer.csproj", "{689EDB10-D283-48BB-B4B8-4965F06C2056}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AESTcpClientServer", "AESTcpClientServer\AESTcpClientServer.csproj", "{689EDB10-D283-48BB-B4B8-4965F06C2056}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

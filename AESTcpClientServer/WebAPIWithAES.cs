@@ -4,7 +4,7 @@ using WebAPI;
 
 namespace TcpClientServerChat
 {
-    public abstract class SecureWebAPI : WebAPI.WebAPI
+    public abstract class WebAPIWithAES : WebAPI.WebAPI
     {
         protected Aes aes;
         protected byte[] KeyExchange(Connection otherParty)
@@ -23,7 +23,7 @@ namespace TcpClientServerChat
             return dh.DeriveKeyMaterial(otherParty_key);
         }
 
-        public SecureWebAPI() : base()
+        public WebAPIWithAES() : base()
         {
             aes = Aes.Create();
         }

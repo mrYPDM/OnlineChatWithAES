@@ -9,7 +9,7 @@ using WebAPI;
 
 namespace TcpClientServerChat
 {
-    public class ServerAPI : SecureWebAPI
+    public class ServerAPIWithAES : WebAPIWithAES
     {
         public override string Title
         {
@@ -309,7 +309,7 @@ namespace TcpClientServerChat
             ListeningThread.Join();
         }
 
-        public ServerAPI(ServerAPIInitArgs new_connection_info) : base()
+        public ServerAPIWithAES(ServerAPIInitArgs new_connection_info) : base()
         {
             _list_of_users = new();
             _list_of_users.CollectionChanged += (s, e) => { RaisePropertyChanged(nameof(ListOfUsers)); };
