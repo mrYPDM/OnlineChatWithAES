@@ -4,11 +4,10 @@ using System.Threading;
 using System.Windows;
 using Prism.Commands;
 using Prism.Mvvm;
-
 using TcpClientServerChat;
 using WebAPI;
 
-namespace TiMP_Project_OnlineChat
+namespace OnlineChat
 {
     class MainWindowViewModel : BindableBase
     {
@@ -84,7 +83,7 @@ namespace TiMP_Project_OnlineChat
                 model?.Shutdown();
                 ClearMessagesUI?.Execute();
                 model = new ClientAPIWithAES(new()
-                { 
+                {
                     IP = client_connection.IP,
                     Port = client_connection.Port,
                     NickName = client_connection.NickName
@@ -104,7 +103,7 @@ namespace TiMP_Project_OnlineChat
                     client_connection.IsStopped = true;
             });
 
-            OpenSettingsWindowCommand = new(() => 
+            OpenSettingsWindowCommand = new(() =>
             {
                 if (model is ServerAPIWithAES serverModel)
                 {

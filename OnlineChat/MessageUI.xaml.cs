@@ -3,14 +3,10 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-
 using WebAPI;
 
-namespace TiMP_Project_OnlineChat
+namespace OnlineChat
 {
-    /// <summary>
-    /// Логика взаимодействия для MessageUI.xaml
-    /// </summary>
     public partial class MessageUI : UserControl
     {
         public MessageUI(Message mesg)

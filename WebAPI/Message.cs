@@ -27,7 +27,7 @@ namespace WebAPI
 
         public static Message FromBase64String(string str)
         {
-            if (str == null) return null;
+            if (string.IsNullOrWhiteSpace(str)) return null;
 
             try
             {

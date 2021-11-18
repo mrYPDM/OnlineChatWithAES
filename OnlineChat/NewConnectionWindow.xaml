@@ -1,14 +1,11 @@
-﻿<Window x:Class="TiMP_Project_OnlineChat.NewConnectionWindow"
+﻿<Window x:Class="OnlineChat.NewConnectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TiMP_Project_OnlineChat"
+        xmlns:local="clr-namespace:OnlineChat"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="295" Width="265" FontFamily="Century Gothic" FontSize="14" ResizeMode="NoResize">
-    <!--<Window.DataContext>
-        <local:NewConnectionWindowViewModel/>
-    </Window.DataContext>-->
+        Title="{Binding Title}" Height="295" Width="265" FontFamily="Century Gothic" FontSize="14" ResizeMode="NoResize" WindowStyle="ToolWindow">
     <Window.Resources>
         <local:IntToStringConverter x:Key="IntToString"/>
     </Window.Resources>

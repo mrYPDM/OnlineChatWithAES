@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebAPI
+﻿namespace WebAPI
 {
     public static partial class MessageService
     {

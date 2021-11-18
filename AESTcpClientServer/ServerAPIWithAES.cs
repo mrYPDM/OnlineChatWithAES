@@ -320,8 +320,8 @@ namespace TcpClientServerChat
             _list_of_users = new();
             _list_of_users.CollectionChanged += (s, e) => { RaisePropertyChanged(nameof(ListOfUsers)); };
 
-            localIP = Global.GetLocalIPAddress();
-            publicIP = Global.GetExternIPAddress();
+            localIP = GlobalSettings.GetLocalIPAddress();
+            publicIP = GlobalSettings.GetExternIPAddress();
             Port = new_connection_info.Port;
             NickName = new_connection_info.NickName;
             MaxFileSize = new_connection_info.MaxFileSize;

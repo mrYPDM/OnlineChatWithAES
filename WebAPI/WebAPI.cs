@@ -89,9 +89,9 @@ namespace WebAPI
         protected void ReadFile(Message message)
         {
             var file_bytes = Convert.FromBase64String(message.OtherData);
-            if (!Directory.Exists(Global.CacheFolder))
-                Directory.CreateDirectory(Global.CacheFolder);
-            message.OtherData = $"{Global.CacheFolder}{message.Text}";
+            if (!Directory.Exists(GlobalSettings.CacheFolder))
+                Directory.CreateDirectory(GlobalSettings.CacheFolder);
+            message.OtherData = $"{GlobalSettings.CacheFolder}{message.Text}";
             File.WriteAllBytes(message.OtherData, file_bytes);
             GC.Collect();
         }
@@ -101,7 +101,7 @@ namespace WebAPI
 
         public WebAPI()
         {
-            Directory.CreateDirectory(Global.CacheFolder);
+            Directory.CreateDirectory(GlobalSettings.CacheFolder);
             _list_of_messages = new();
             ListOfMessages = new(_list_of_messages);
         }

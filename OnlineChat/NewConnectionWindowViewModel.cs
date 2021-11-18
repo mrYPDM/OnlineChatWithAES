@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using WebAPI;
 
-namespace TiMP_Project_OnlineChat
+namespace OnlineChat
 {
     public class NewConnectionWindowViewModel
     {
@@ -39,9 +39,9 @@ namespace TiMP_Project_OnlineChat
                 return false;
             }
 
-            if (Port < 0 || Port >= 65536)
+            if (Port < 0 || Port > 65535)
             {
-                MessageBox.Show("Порт должен быть в диапазоне [0; 65536]", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Порт должен быть в диапазоне [0; 65535]", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
@@ -55,7 +55,7 @@ namespace TiMP_Project_OnlineChat
             {
                 if (MaxUsersCount < 0)
                 {
-                    MessageBox.Show("Количество пользователей должно быть не меньше 0 (0 - неограничено)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Количество пользователей должно быть не меньше 0 (0 - неограниченно)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
 
@@ -74,7 +74,7 @@ namespace TiMP_Project_OnlineChat
             this.is_user = is_user;
             if (!is_user)
             {
-                IP = Global.GetLocalIPAddress() + ", " + Global.GetExternIPAddress();
+                IP = GlobalSettings.GetLocalIPAddress() + ", " + GlobalSettings.GetExternIPAddress();
                 Port = 7777;
                 NickName = "admin";
                 MaxUsersCount = 50;

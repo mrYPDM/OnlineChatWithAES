@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace TiMP_Project_OnlineChat
+namespace OnlineChat
 {
     class IntToStringConverter : IValueConverter
     {
