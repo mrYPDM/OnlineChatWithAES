@@ -12,7 +12,7 @@ namespace TiMP_Project_OnlineChat
 {
     class MainWindowViewModel : BindableBase
     {
-        private WebAPIWithAES model = null;
+        private WebAPI.SecureWebApi.WebApi_AES_ECDH model = null;
         private NewConnectionWindowViewModel server_connection = null;
         private NewConnectionWindowViewModel client_connection = null;
         public string Title => model?.Title ?? "Chat - Offline";

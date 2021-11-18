@@ -5,12 +5,13 @@ using System.Net.Sockets;
 
 namespace TcpClientServerChat
 {
-    public class Connection
+    public class TcpConnection : WebAPI.IConnection
     {
         private readonly Socket socket;
         private NetworkStream socket_stream;
         private BinaryReader reader;
         private BinaryWriter writer;
+
         public bool Connected => socket.Connected;
 
         private string _ip;
@@ -45,7 +46,7 @@ namespace TcpClientServerChat
             writer = new(socket_stream);
         }
 
-        public Connection(Socket user_socket)
+        public TcpConnection(Socket user_socket)
         {
             socket = user_socket;
             StreamsInit();
@@ -55,7 +56,7 @@ namespace TcpClientServerChat
                 _port = (user_socket.RemoteEndPoint as IPEndPoint).Port;
             }
         }
-        public Connection(string ip, int port)
+        public TcpConnection(string ip, int port)
         {
             socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _ip = ip;
@@ -97,6 +98,7 @@ namespace TcpClientServerChat
                 StreamsInit();
             }
         }
+
         public void Disconnect()
         {
             if (Connected)

@@ -6,10 +6,11 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using WebAPI;
+using WebAPI.SecureWebApi;
 
 namespace TcpClientServerChat
 {
-    public class ServerAPIWithAES : WebAPIWithAES
+    public class ServerAPIWithAES : WebApi_AES_ECDH
     {
         public override string Title
         {
@@ -25,7 +26,7 @@ namespace TcpClientServerChat
 
         class User
         {
-            public Connection Connection = null;
+            public TcpConnection Connection = null;
             public Thread ReaderThread = null;
 
             public string FullName => $"{NickName}#{ID}";
@@ -194,7 +195,7 @@ namespace TcpClientServerChat
                                      .Where(x => x.Text != string.Empty &&
                                             !x.Service.Contains("new_user") &&
                                             !x.Service.Contains("nick"))
-                                     .Skip(Math.Max(0, ListOfMessages.Count - 50)).ToArray();
+                                     .TakeLast(50).ToArray();
                 foreach (Message m in valid_messages)
                 {
                     if (m.Service == MessageService.File)
@@ -221,7 +222,12 @@ namespace TcpClientServerChat
         private void AcceptNewUser(User newUser)
         {
             {
-                newUser.Key = KeyExchange(newUser.Connection);
+                try { newUser.Key = KeyExchange(newUser.Connection); }
+                catch (Exception e)
+                {
+                    AddNewMessage(new Message("Server", e.Message, MessageService.Log));
+                    return;
+                }
                 var nick_message = SecureMessageService.ReadSecureMessage(newUser.Connection.ReadMessage(), newUser.Key);
                 if (nick_message == null)
                     return;

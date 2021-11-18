@@ -3,10 +3,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using WebAPI;
+using WebAPI.SecureWebApi;
 
 namespace TcpClientServerChat
 {
-    public class ClientAPIWithAES : WebAPIWithAES
+    public class ClientAPIWithAES : WebApi_AES_ECDH
     {
         public class ClientAPIInitArgs
         {
@@ -25,7 +26,7 @@ namespace TcpClientServerChat
             }
         }
 
-        private readonly Connection server;
+        private readonly TcpConnection server;
         private Thread UserReaderThread;
 
         private readonly ObservableCollection<string> _list_of_users;
@@ -59,6 +60,7 @@ namespace TcpClientServerChat
                 AddNewMessage(new Message("Client", "Fail to connect", MessageService.Log));
                 return;
             }
+
             var message = Message.FromBase64String(server.ReadMessage());
             AddNewMessage(message);
             if (message.Service == MessageService.NoPlaces)
@@ -66,7 +68,14 @@ namespace TcpClientServerChat
                 server.Disconnect();
                 return;
             }
-            aes.Key = KeyExchange(server);
+
+            try {  aes.Key = KeyExchange(server); }
+            catch (Exception e)
+            {
+                AddNewMessage(new Message("Client", e.Message, MessageService.Log));
+                return;
+            }
+
             SendMessage(new Message(_nick, string.Empty, $"nick\x1{_nick}"));
 
             UserReaderThread = new(new ThreadStart(ReadMessages)) { Name = "ClientAPI_ReadThread" };
