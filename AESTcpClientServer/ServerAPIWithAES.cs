@@ -136,7 +136,6 @@ namespace TcpClientServerChat
             }
         }
         public override void SendMessage(Message message) => SendMessageToAllExcept(message, null);
-        public override void SendText(string text) => SendMessage(new(NickName, text, string.Empty));
 
         private void DisconnectAndRemoveUser(User user)
         {

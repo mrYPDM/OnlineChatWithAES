@@ -59,7 +59,7 @@ namespace WebAPI
         }
 
         public abstract void SendMessage(Message message);
-        public abstract void SendText(string text);
+        public virtual void SendText(string text) => SendMessage(new(NickName, text, string.Empty));
 
         protected void CheckFile(string filename, int max_size)
         {

@@ -101,7 +101,6 @@ namespace TcpClientServerChat
             aes.GenerateIV();
             server.SendMessage(message.CreateSecureMessage(aes.Key, aes.IV));
         }
-        public override void SendText(string text) => SendMessage(new(NickName, text, string.Empty));
 
         private void ExecCMD(Message message)
         {
